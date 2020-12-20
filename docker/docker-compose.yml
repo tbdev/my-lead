@@ -1,0 +1,57 @@
+version: '3.6'
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    container_name: my-lead-app
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ../:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - my-lead-network
+   
+  server:
+    image: nginx:alpine
+    container_name: my-lead-nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8010:80"
+      - "4431:443"
+    volumes:
+      - ../:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - my-lead-network  
+
+  db:
+    image: mariadb:10.3.27
+    container_name: my-lead-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "33060:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: database
+    volumes:
+      - my_lead_db_data:/var/lib/mysql-files/
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my-lead-network  
+
+volumes:
+  my_lead_db_data:
+    driver: local   
+
+networks:
+  my-lead-network:
+    external: true       
