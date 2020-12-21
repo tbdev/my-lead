@@ -17,4 +17,9 @@ class Price extends Model
     {
         return $this->belongsToMany(Product::class, 'products_prices');
     }
+
+    public function getPrice()
+    {
+        return number_format($this->price / 100, 2, '.', '.');
+    }
 }

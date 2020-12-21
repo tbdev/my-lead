@@ -15,4 +15,5 @@ class ProductsPrices extends Model
     ];
 
     public $timestamps = false;
+
 }
