@@ -18,11 +18,4 @@ class Product extends Model
     {
         return $this->belongsToMany(Price::class, 'products_prices');
     }
-
-    public function checkPrice(int $id)
-    {
-        $this->prices->contains(function ($value, $key) use ($id) {
-            return $value > 5;
-        });
-    }
 }

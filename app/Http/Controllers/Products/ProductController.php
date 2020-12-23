@@ -67,10 +67,10 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): Redirect
     {
-        $productId = $this->productService->createProduct($request);
+        $product = $this->productService->createProduct($request);
         
         return redirect()
-            ->route('product.edit', ['id' => $productId])
+            ->route('product.edit', ['id' => $product->id])
             ->with('status', 'You add new product!');
     }
 }

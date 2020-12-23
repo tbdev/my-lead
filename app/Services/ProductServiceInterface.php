@@ -17,5 +17,5 @@ interface ProductServiceInterface
     public function getProductById(int $id): ?Product;
     public function updateProduct(ProductRequest $productRequest): void;
     public function deleteProductById(int $id): Redirect;
-    public function createProduct(ProductRequest $request): int;
+    public function createProduct(ProductRequest $request): Product;
 }

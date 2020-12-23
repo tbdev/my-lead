@@ -55,7 +55,7 @@ class ProductService implements ProductServiceInterface
        
     }
 
-    public function createProduct(ProductRequest $request): int
+    public function createProduct(ProductRequest $request): Product
     {
         return $this->productRepository->createProduct(
             $request->name,

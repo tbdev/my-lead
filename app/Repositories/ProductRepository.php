@@ -42,7 +42,7 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::destroy($id);
     }
 
-    public function createProduct(string $name, string $description, array $pricesIds): int
+    public function createProduct(string $name, string $description, array $pricesIds): Product
     {
         $product = Product::create([
             'name' => $name,
@@ -51,6 +51,6 @@ class ProductRepository implements ProductRepositoryInterface
 
         $product->prices()->attach($pricesIds);
 
-        return $product->id;
+        return $product;
     }
 }
